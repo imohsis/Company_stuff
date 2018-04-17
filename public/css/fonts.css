@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'proximanova';
+    font-weight: normal;
+    src: url('../fonts/proximanova-regular.eot'); /* IE9 */
+    src: url('../fonts/proximanova-regular.eot?') format('eot'),  /* IE6-IE8 */
+    url('../fonts/proximanova-regular.woff') format('woff'), /* Современные браузеры */
+    url('../fonts/proximanova-regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/proximanova-regular.svg#svgRegular') format('svg'); /* iOS */
+}
+@font-face {
+    font-family: 'proximanova-light';
+    font-weight: normal;
+    src: url('../fonts/proximanova-light.eot'); /* IE9 */
+    src: url('../fonts/proximanova-light.eot?') format('eot'),  /* IE6-IE8 */
+    url('../fonts/proximanova-light.woff') format('woff'), /* Современные браузеры */
+    url('../fonts/proximanova-light.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/proximanova-light.svg#svgRegular') format('svg'); /* iOS */
+}
+@font-face {
+    font-family: 'MyriadProBold';
+    font-weight: normal;
+    src: url('../fonts/MyriadProBold.eot'); /* IE9 */
+    src: url('../fonts/MyriadProBold.eot?') format('eot'),  /* IE6-IE8 */
+    url('../fonts/MyriadProBold.woff') format('woff'), /* Современные браузеры */
+    url('../fonts/MyriadProBold.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/MyriadProBold.svg#svgRegular') format('svg'); /* iOS */
+}
+@font-face {
+    font-family: 'MyriadProRegulara';
+    font-weight: normal;
+    src: url('../fonts/MyriadProRegular.eot'); /* IE9 */
+    src: url('../fonts/MyriadProRegular.eot?') format('eot'),  /* IE6-IE8 */
+    url('../fonts/MyriadProRegular.woff') format('woff'), /* Современные браузеры */
+    url('../fonts/MyriadProRegular.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/MyriadProRegular.svg#svgRegular') format('svg'); /* iOS */
+}

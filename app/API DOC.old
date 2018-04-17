@@ -1,0 +1,2695 @@
+=======================================================
+Official APIs status code, to determine if request has been delivered successful.
+1. 200 OK – [GET]
+   The Consumer requested data from the Server, and the Server found it for them (Idempotent)
+
+2. 201 CREATED – [POST/PUT/PATCH]
+   The Consumer gave the Server data, and the Server created a resource
+
+3. 204 NO CONTENT – [DELETE]
+   The Consumer asked the Server to delete a Resource, and the Server deleted it
+
+4. 400 INVALID REQUEST – [POST/PUT/PATCH]
+   The Consumer gave bad data to the Server, and the Server did nothing with it (Idempotent)
+
+5. 404 NOT FOUND – [*]
+   The Consumer referenced an inexistant Resource or Collection, and the Server did nothing (Idempotent)
+
+6. 500 INTERNAL SERVER ERROR – [*]
+   The Server encountered an error, and the Consumer has no knowledge if the request was successful
+
+=======================================================
+BASE URL =  http://afrobeat.com/api/
+1)-Create Video -
+API URL - video/create
+Request Data
+{
+
+	   input:hidden "user" :"JWT-TOKEN",
+	    input:select  "type":"1",
+		input:select "artist_uid":"173647364837",
+		input:text "title":"Linkin Park Interview",
+		input:file "video_cover":"cover_7565484.png",
+		input:text "link":"https://www.youtube.com/watch?v=fIHH5-HVS9o"
+
+}
+
+Response Data:
+{
+    "version":"1.0",
+    "info":
+        {
+            "code":"201",
+            "msg":"Success"
+        },
+    "data":
+        {
+        "video":
+            {
+                "uid":"789190879001",
+                "link":"https:\/\/www.youtube.com\/watch?v=fIHH5-HVS9o","cover":"cover_7565484.png",
+                "title":"Linkin Park Interview"
+            }
+        }
+}
+
+2)-Get All Videos (By status) - //Returns all active videos is status isnt sent
+API URL - videos
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "start" : 0,
+	    "limit" : 5,
+	    "status" : 1 //Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "videos": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview-8199",
+        "updated_at": "2016-07-27 16:22:51"
+      },
+      {
+        "id": 14,
+        "uid": "980790708188",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:12",
+        "status": 1,
+        "slug": "linkin-park-interview-7998",
+        "updated_at": "2016-07-27 16:22:12"
+      }
+    ]
+  }
+}
+
+2.1)-Get All Videos (By Artist)
+API URL - videos/artist
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "artist_uid" : "4857683",
+	    "start" : 0,
+	    "limit" : 5
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "videos": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview-8199",
+        "updated_at": "2016-07-27 16:22:51"
+      },
+      {
+        "id": 14,
+        "uid": "980790708188",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:12",
+        "status": 1,
+        "slug": "linkin-park-interview-7998",
+        "updated_at": "2016-07-27 16:22:12"
+      }
+    ]
+  }
+}
+
+2.2)-Get All Videos (By type)
+API URL - videos/type
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "type" : "2",
+	    "start" : 0,
+	    "limit" : 5
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "videos": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview-8199",
+        "updated_at": "2016-07-27 16:22:51"
+      },
+      {
+        "id": 14,
+        "uid": "980790708188",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:12",
+        "status": 1,
+        "slug": "linkin-park-interview-7998",
+        "updated_at": "2016-07-27 16:22:12"
+      }
+    ]
+  }
+}
+
+
+3)-Get Video
+API URL - video
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+        "slug" : "linkin-park-interview"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "video": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview",
+        "updated_at": "2016-07-27 16:22:51"
+      }
+    ]
+  }
+}
+
+4)-Delete Video
+API URL - video/delete
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+        "uid" : "103983746574843"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "204",
+    "msg": "Success"
+  },
+  "data": []
+}
+
+5)-Edit Video -
+API URL - video/create
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "uid" : "081080988180",
+		"type":"1",
+		"artist_uid":"173647364837",
+		"title":"Linkin Park Interview",
+		"video_cover":"cover_7565484.png",
+		"filename":"https://www.youtube.com/watch?v=fIHH5-HVS9o"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "201",
+    "msg": "Success"
+  },
+  "data": []
+}
+
+5.1)-Edit Video Cover Image -
+API URL - video/edit/video_cover
+Request Data
+ [
+ name: images, type:file
+ name: uid, type:hidden
+ name: user, type:hidden
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "videoCover":"891709891009_sdkl.jpg"
+           }
+  }
+
+6)-Create Video Type -
+API URL - videotype/create
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"type":"News"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "201",
+    "msg": "Success"
+  },
+  "data": {
+    "data": {
+      "id": 3,
+      "type": "News"
+    }
+  }
+}
+
+7)-Delete Video Type -
+API URL - videotype/delete
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"id":"1"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "204",
+    "msg": "Success"
+  },
+  "data": []
+}
+
+8)-Edit Video Type -
+API URL - videotype/edit
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"id":"1",
+		"type" : "type"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "201",
+    "msg": "Success"
+  },
+  "data": []
+}
+
+9)-Get Video Type -
+API URL - videotype/type
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"id":"1"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "type": [
+      {
+        "id": 3,
+        "type": "News",
+        "status": 1
+      }
+    ]
+  }
+}
+
+10)-Get All Video Types (By status)- //Gets all active types if no status is sent
+API URL - videotype/types
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"status":"1" - Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "types": [
+      {
+        "id": 1,
+        "type": "Block busters",
+        "status": 1
+      },
+      {
+        "id": 4,
+        "type": "Gossip",
+        "status": 1
+      },
+      {
+        "id": 5,
+        "type": "Movie Trailers",
+        "status": 1
+      }
+    ]
+  }
+}
+//END OF VIDEO API
+
+//LOGIN AUTHENTICATION
+{
+    "data":{
+    "username":"solomon",
+    "password":"winter"
+    }
+}
+
+//LOGIN AUTHENTICATION
+LOGIN API -- /login
+{
+    "data":{
+    "username":"solomon",
+    "password":"winter"
+    }
+}
+
+Response 1
+{
+    "version":"1.0",
+    "info":{
+            "code":"201",
+            "msg":"Success"
+            },
+    "data":{
+            "signature":"JWT-TOKEN"
+            }
+}
+
+//FETCH USER DETAILS
+USER DETAILS API -- /profile/details
+Request
+
+{
+    "data":{
+            "user":"JWT-TOKEN"
+    }
+}
+
+
+ Response 2
+ {
+    "version":"1.0",
+    "info":{
+            "code":"201",
+            "msg":"Success"
+            },
+    "data":{
+            "username":"solomon",
+            "full_name":"solomon nweze",
+            "email":"solomon@yahoo.com",
+            "uid":"489idfkhj3",
+            "account_type":"1",
+            "avatar":"cdn/images/my_afrobeat.jpg",
+            "links":{
+                    "link1":{
+                            "text":"Videos",
+                            "icon":"film"
+                    },
+                    "link2":{
+                            "text":"News",
+                            "icon":"newspaper"
+                            }
+                    }
+            }
+ }
+
+
+  //END OF LOGIN AUTHENTICATION
+
+  //BEGIN OF SIGNUP
+
+  SIGNUP API -- /signup
+  {
+      "data":{
+      "username":"solomon",
+      "password":"winter"
+      "email":"solomon@wordaround.com",
+      "full_name":"Solomon Nweze"
+      }
+  }
+
+  Response 1
+  {
+      "version":"1.0",
+      "info":{
+              "code":"201",
+              "msg":"Success"
+              },
+      "data":{
+              "user":"olajide"
+              }
+  }
+
+  //END OF SIGNUP
+
+    //CREATE AND GET USERS
+
+    1)-Get All Users (By status) - //Returns all active users
+    API URL - users
+    Request Data
+    {
+    	"data":{
+    	    "start" : 0,
+    	    "limit" : 5,
+    	    "status" : 1, //Optional
+    	    "status" : 1 //Optional
+        }
+
+    }
+
+    Response Data:
+    {
+      "version": "1.0",
+      "info": {
+        "code": "200",
+        "msg": "Success"
+      },
+      "data": {
+        "news": [
+          {
+            "id": 15,
+            "uid": "081080988180",
+            "admin_id": "746374857382",
+            "cat_id": 1,
+            "title": "Linkin Park Interview",
+            "cover_img": "cover_7565484.png",
+            "content": "this is letter to my unborn child",
+            "views": 0,
+            "created_at": "2016-07-27 16:22:51",
+            "status": 1,
+            "slug": "linkin-park-interview-8199",
+            "updated_at": "2016-07-27 16:22:51"
+          },
+          {
+            "id": 14,
+            "uid": "980790708188",
+            "admin_id": "746374857382",
+            "cat_id": 1,
+            "title": "Linkin Park Interview",
+            "cover_img": "cover_7565484.png",
+            "content": "Only God can judge me, nobody else",
+            "views": 0,
+            "created_at": "2016-07-27 16:22:12",
+            "status": 1,
+            "slug": "linkin-park-interview-7998",
+            "updated_at": "2016-07-27 16:22:12"
+          }
+        ]
+      }
+    }
+
+ 2)-Get User (By status) - //Returns an active user
+    API URL - user
+    Request Data
+    {
+    	"data":{
+    	    "start" : 0,
+    	    "limit" : 5,
+    	    "status" : 1, //Optional
+    	    "status" : 1 //Optional
+        }
+
+    }
+
+    Response Data:
+    {
+      "version": "1.0",
+      "info": {
+        "code": "200",
+        "msg": "Success"
+      },
+      "data": {
+        "news": [
+          {
+            "id": 15,
+            "uid": "081080988180",
+            "admin_id": "746374857382",
+            "cat_id": 1,
+            "title": "Linkin Park Interview",
+            "cover_img": "cover_7565484.png",
+            "content": "this is letter to my unborn child",
+            "views": 0,
+            "created_at": "2016-07-27 16:22:51",
+            "status": 1,
+            "slug": "linkin-park-interview-8199",
+            "updated_at": "2016-07-27 16:22:51"
+          },
+          {
+            "id": 14,
+            "uid": "980790708188",
+            "admin_id": "746374857382",
+            "cat_id": 1,
+            "title": "Linkin Park Interview",
+            "cover_img": "cover_7565484.png",
+            "content": "Only God can judge me, nobody else",
+            "views": 0,
+            "created_at": "2016-07-27 16:22:12",
+            "status": 1,
+            "slug": "linkin-park-interview-7998",
+            "updated_at": "2016-07-27 16:22:12"
+          }
+        ]
+      }
+    }
+
+3)-Create User -
+ API URL - user/create
+ Request Data
+ [
+
+ name: full_name, type:text
+ name: avatar, type:file
+ name: acc_type, type:hidden
+ name: user, type:hidden
+
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "users":"891709891009"
+           }
+  }
+
+4)-Edit User -
+ API URL - user/edit
+ Request Data
+ [
+
+ name: full_name, type:text
+ name: username, type:hidden
+ name: user, type:hidden
+ name: user_uid, type:hidden
+
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "users":"891709891009"
+           }
+  }
+
+01) EDIT PASSWORD API -- /user/edit/password
+     {
+         "data":{
+         "old_password":"solomon",
+         "password":"winter"
+         "confirm_password":"winter"
+         }
+     }
+
+     Response 1
+     {
+         "version":"1.0",
+         "info":{
+                 "code":"201",
+                 "msg":"Success"
+                 },
+         "data":{
+                 "password":[]
+                 }
+     }
+
+
+  1)-Add News Section Images -
+  API URL - user/edit/avatar
+  Request Data
+   [
+   name: avatar, type:file
+   name: user_uid, type:hidden
+   name: user, type:hidden
+   ]
+
+
+   Response Data:
+   {
+         "version":"1.0",
+         "info":{
+                   "code":"201",
+                   "msg":"Success"
+             },
+         "data":{
+                   "images": ["891709891009_sdkl.jpg","39834-asdfi.jpg"]
+             }
+    }
+
+    4)-Delete User
+    API URL - user/delete
+    Request Data
+    {
+        "data":{
+            "user" :"JWT-TOKEN",
+            "uid" : "103983746574843"
+        }
+
+    }
+
+    Response Data:
+    {
+      "version": "1.0",
+      "info": {
+        "code": "204",
+        "msg": "Success"
+      },
+      "data": []
+    }
+
+
+    //END OF CREATE AND GET USERS
+
+//NEWS API BEGINS HERE
+
+1)-Create News -
+API URL - news/create
+Request Data
+[
+
+name: title, type:text
+name: cover_img, type:file
+name: cat_id, type:hidden
+name: user, type:hidden
+
+]
+
+
+Response Data:
+{
+      "version":"1.0",
+      "info":{
+                "code":"201",
+                "msg":"Success"
+          },
+      "data":{
+                "news_uid":"891709891009"
+          }
+ }
+
+ 1)-Create News Section -
+ API URL - news/section/create
+ Request Data
+ [
+
+ name: title, type:text
+ name: images[], type:file
+ name: news_uid, type:hidden
+ name: user, type:hidden
+ name: content, type:textarea
+
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "news_uid":"891709891009"
+           }
+  }
+
+1)-Edit News Section -
+ API URL - news/section/edit
+ Request Data
+ [
+
+ name: title, type:text
+ name: images[], type:file
+ name: news_uid, type:hidden
+ name: user, type:hidden
+ name: content, type:textarea
+ name: section_id, type:hidden
+
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+
+           }
+  }
+
+1)-Add News Section Images -
+API URL - news/section/add/images
+Request Data
+ [
+ name: images[], type:file
+ name: news_uid, type:hidden
+ name: section_id, type:hidden
+ name: user, type:hidden
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "images": ["891709891009_sdkl.jpg","39834-asdfi.jpg"]
+           }
+  }
+
+1)-Delete Photo From News Section -
+ API URL - news/section/photo/delete
+ Request Data
+ {
+     "data":{
+     "section_id":"9",
+     "news_uid":"891709891009",
+     "image":"1471360509_8771788998.jpg"
+     }
+ }
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+
+           }
+  }
+
+
+2)-Get All News (By status) - //Returns all active news is status isnt sent
+API URL - news
+Request Data
+{
+	"data":{
+	    "start" : 0,
+	    "limit" : 5,
+	    "status" : 1 //Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "news": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "cat_id": 1,
+        "title": "Linkin Park Interview",
+        "cover_img": "cover_7565484.png",
+        "content": "this is letter to my unborn child",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview-8199",
+        "updated_at": "2016-07-27 16:22:51"
+      },
+      {
+        "id": 14,
+        "uid": "980790708188",
+        "admin_id": "746374857382",
+        "cat_id": 1,
+        "title": "Linkin Park Interview",
+        "cover_img": "cover_7565484.png",
+        "content": "Only God can judge me, nobody else",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:12",
+        "status": 1,
+        "slug": "linkin-park-interview-7998",
+        "updated_at": "2016-07-27 16:22:12"
+      }
+    ]
+  }
+}
+
+3)-Get SingleNews
+API URL - news/item
+Request Data
+{
+	"data":{
+
+        "slug" : "linkin-park-interview"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "news": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview",
+        "updated_at": "2016-07-27 16:22:51"
+      }
+    ]
+  }
+}
+
+4)-Delete News
+API URL - news/delete
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+        "uid" : "103983746574843"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "204",
+    "msg": "Success"
+  },
+  "data": []
+}
+
+5)-Edit News -
+API URL - news/edit
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+        "uid" : "103983746574843",
+        "title" : "jerk"
+    }
+
+}
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "news_uid":"891709891009"
+           }
+  }
+
+5)-Edit News Cover Image -
+API URL - news/edit/cover_img
+Request Data
+ [
+ name: images, type:file
+ name: uid, type:hidden
+ name: user, type:hidden
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "cover_img":"891709891009_sdkl.jpg"
+           }
+  }
+
+5.1)-Get News Belonging to a Unique Category -
+API URL - /news/category/news
+Request Data
+{
+	"data":{
+
+		"cat_id":"1",
+		"start" : 0,
+        "limit" : 5
+      }
+
+}
+
+Response
+{   "version":"1.0",
+    "info":{
+        "code":"200",
+        "msg":"Success"
+        },
+        "data":{
+        "newsCategory":[
+            {"id":1,
+            "uid":"179890181001",
+            "admin_id":"489idfkhj3",
+            "news_title":"Linkin Park Interview Now",
+            "content":"https:\/\/www.youtube.com\/watch?v=fIHH5-HVS9o",
+            "cover_img":"cover_7565484.png",
+            "created_at":"2016-08-01 16:13:16",
+            "updated_at":"2016-08-01 17:06:02",
+            "status":1,
+            "cat_id":1,
+            "views":null,
+            "slug":"linkin-park-interview"},
+                {
+                    "id":2,
+                    "uid":"907199788790",
+                    "admin_id":"489idfkhj3",
+                    "news_title":"Linkin Park Interview",
+                    "content":"Hip-Hop Hurray say ooo, yes boss",
+                    "cover_img":"cover_7565484.png",
+                    "created_at":"2016-08-01 16:14:05",
+                    "updated_at":"2016-08-01 18:01:48",
+                    "status":1,
+                    "cat_id":1,
+                    "views":null,
+                    "slug":"linkin-park-interview-1199"
+                    }
+                  ]
+                }
+            }
+
+6)-Create News Category -
+API URL - /news/category/create
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"catName":"News"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "201",
+    "msg": "Success"
+  },
+  "data": {
+    "data": {
+      "id": 3,
+      "catName": "News"
+    }
+  }
+}
+
+7)-Delete News Category -
+API URL - /news/category/delete
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"id":"1"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "204",
+    "msg": "Success"
+  },
+  "data": []
+}
+
+8)-Edit News Category -
+API URL - /news/category/edit
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"id":"1",
+		"catName" : "Tech News"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "201",
+    "msg": "Success"
+  },
+  "data": []
+}
+
+9)-Get News Category -
+API URL - /news/category/item
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"id":"1"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "catName": [
+      {
+        "id": 3,
+        "catName": "News",
+        "status": 1
+      }
+    ]
+  }
+}
+
+10)-Get All News Category (By status)- //Gets all active types if no status is sent
+API URL - /news/category
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+		"status":"1" - Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "catName": [
+      {
+        "id": 5,
+        "cat_name": "African Juju News",
+        "status": 1
+      },
+      {
+        "id": 4,
+        "cat_name": "Afro News",
+        "status": 1
+      },
+      {
+        "id": 3,
+        "cat_name": "Afro Rap News",
+        "status": 1
+      },
+      {
+        "id": 1,
+        "cat_name": "Tech News",
+        "status": 1
+      },
+      {
+        "id": 2,
+        "cat_name": "Traditional News",
+        "status": 1
+      }
+    ]
+  }
+}
+//END OF NEWS API
+
+//ARTIST API BEGINS HERE
+
+1)-Create Artist -
+API URL - /artists/create
+Request Data
+{
+    "data":{
+        "user": "JWT-TOKEN",
+        "name" : "Dbanj",
+        "avatar" : "dbanj.jpg"
+    }
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "201",
+    "msg": "Success"
+  },
+  "data": {
+    "artist": {
+      "uid": "008078819871",
+      "artist_name": "Dbanj",
+      "avatar": "dbanj.jpg",
+      "status": 1,
+      "slug": "dbanj",
+      "cdn_status": 0,
+      "updated_at": "2016-08-09 09:25:10",
+      "created_at": "2016-08-09 09:25:10",
+      "id": 1
+    }
+  }
+}
+
+2)-Get Artists (Alphabetical Order) -
+API URL - /artists
+Request Data
+{
+    "data":{
+        "status" : 1, (optional)
+        "start": 0,
+        "limit" : 10
+    }
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "artists": [
+      {
+        "id": 1,
+        "uid": "008078819871",
+        "artist_name": "Dbanj",
+        "avatar": "dbanj.jpg",
+        "slug": "dbanj",
+        "created_at": "2016-08-09 09:25:10",
+        "updated_at": "2016-08-09 09:25:10",
+        "status": 1,
+        "cdn_status": 0
+      },
+        {
+          "id": 2,
+          "uid": "008078819871",
+          "artist_name": "Dbanj",
+          "avatar": "dbanj.jpg",
+          "slug": "dbanj",
+          "created_at": "2016-08-09 09:25:10",
+          "updated_at": "2016-08-09 09:25:10",
+          "status": 1,
+          "cdn_status": 0
+        }
+    ]
+  }
+}
+
+3)-Get Artists (Most Recent) -
+API URL - /artists/recent
+Request Data
+{
+    "data":{
+        "status" : 1, (optional)
+        "start": 0,
+        "limit" : 10
+    }
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "artists": [
+      {
+        "id": 1,
+        "uid": "008078819871",
+        "artist_name": "Dbanj",
+        "avatar": "dbanj.jpg",
+        "slug": "dbanj",
+        "created_at": "2016-08-09 09:25:10",
+        "updated_at": "2016-08-09 09:25:10",
+        "status": 1,
+        "cdn_status": 0
+      },
+        {
+          "id": 2,
+          "uid": "008078819871",
+          "artist_name": "Dbanj",
+          "avatar": "dbanj.jpg",
+          "slug": "dbanj",
+          "created_at": "2016-08-09 09:25:10",
+          "updated_at": "2016-08-09 09:25:10",
+          "status": 1,
+          "cdn_status": 0
+        }
+    ]
+  }
+}
+
+
+//LIVE FEED API BEGINS HERE
+
+1)-Create Live Feed -
+API URL - live_feed/create
+Request Data
+[
+
+name: title, type:text
+name: content, type:textarea
+name: thumbnail, type:file
+name: feed_type, type:select dropdown
+name: user, type:hidden
+name: attachment, type:file or text    //if any
+
+]
+
+
+Response Data:
+{
+      "version":"1.0",
+      "info":{
+                "code":"201",
+                "msg":"Success"
+          },
+      "data":{
+                "liveFeed":"liveFeedContent"
+          }
+ }
+
+1)-Edit Live Feed -
+ API URL - live_feed/edit
+ Request Data
+ [
+
+ name: title, type:text
+ name: content, type:textarea
+ name: user, type:hidden
+ name: uid, type:hidden
+
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+
+           }
+  }
+
+1)-Edit Live Feed Thumbnail -
+API URL - live_feed/edit/thumbnail
+Request Data
+ [
+ name: thumbnail, type:file
+ name: uid, type:hidden
+ name: user, type:hidden
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "thumbnail": "891709891009_sdkl.jpg"
+           }
+  }
+
+  1)-Edit Live Feed Attachment -
+  API URL - live_feed/edit/attachment
+  Request Data
+   [
+   name: attachment, type:file
+   name: uid, type:hidden
+   name: user, type:hidden
+   ]
+
+
+   Response Data:
+   {
+         "version":"1.0",
+         "info":{
+                   "code":"201",
+                   "msg":"Success"
+             },
+         "data":{
+                   "attachment": "891709891009_sdkl.jpg"
+             }
+    }
+
+1)-Delete Live Feed -
+ API URL - live_feed/delete
+ Request Data
+ {
+     "data":{
+     "uid":"891709891009",
+     "user":"JWT"
+     }
+ }
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+
+           }
+  }
+
+
+2)-Get All Live Feed (By status) - //Returns all active live feed is status isnt sent
+API URL - live_feed
+Request Data
+{
+	"data":{
+	    "start" : 0,
+	    "limit" : 5,
+	    "status" : 1 //Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "liveFeed": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "cat_id": 1,
+        "title": "Linkin Park Interview",
+        "cover_img": "cover_7565484.png",
+        "content": "this is letter to my unborn child",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview-8199",
+        "updated_at": "2016-07-27 16:22:51"
+      },
+      {
+        "id": 14,
+        "uid": "980790708188",
+        "admin_id": "746374857382",
+        "cat_id": 1,
+        "title": "Linkin Park Interview",
+        "cover_img": "cover_7565484.png",
+        "content": "Only God can judge me, nobody else",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:12",
+        "status": 1,
+        "slug": "linkin-park-interview-7998",
+        "updated_at": "2016-07-27 16:22:12"
+      }
+    ]
+  }
+}
+
+3)-Get SingleLiveFeed
+API URL - live_feed/item
+Request Data
+{
+	"data":{
+
+        "uid" : "39jfeiff9ffuui"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "liveFeed": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview",
+        "updated_at": "2016-07-27 16:22:51"
+      }
+    ]
+  }
+}
+
+5)-Get Live Feed Belonging to Unique Poster Uid -
+API URL - /live_feed/unique/poster/live_feed
+Request Data
+{
+	"data":{
+
+		"start" : 0,
+        "limit" : 5
+      }
+
+}
+
+Response
+{   "version":"1.0",
+    "info":{
+        "code":"200",
+        "msg":"Success"
+        },
+        "data":{
+        "liveFeed":[
+            {"id":1,
+            "uid":"179890181001",
+            "admin_id":"489idfkhj3",
+            "news_title":"Linkin Park Interview Now",
+            "content":"https:\/\/www.youtube.com\/watch?v=fIHH5-HVS9o",
+            "cover_img":"cover_7565484.png",
+            "created_at":"2016-08-01 16:13:16",
+            "updated_at":"2016-08-01 17:06:02",
+            "status":1,
+            "cat_id":1,
+            "views":null,
+            "slug":"linkin-park-interview"},
+                {
+                    "id":2,
+                    "uid":"907199788790",
+                    "admin_id":"489idfkhj3",
+                    "news_title":"Linkin Park Interview",
+                    "content":"Hip-Hop Hurray say ooo, yes boss",
+                    "cover_img":"cover_7565484.png",
+                    "created_at":"2016-08-01 16:14:05",
+                    "updated_at":"2016-08-01 18:01:48",
+                    "status":1,
+                    "cat_id":1,
+                    "views":null,
+                    "slug":"linkin-park-interview-1199"
+                    }
+                  ]
+                }
+            }
+
+5.1)-Get Live Feed Belonging to Unique User Type -
+API URL - /live_feed/poster/live_feed
+Request Data
+{
+	"data":{
+
+		"acc_type":"1",
+		"start" : 0,
+        "limit" : 5
+      }
+
+}
+
+Response
+{   "version":"1.0",
+    "info":{
+        "code":"200",
+        "msg":"Success"
+        },
+        "data":{
+        "liveFeed":[
+            {"id":1,
+            "uid":"179890181001",
+            "admin_id":"489idfkhj3",
+            "news_title":"Linkin Park Interview Now",
+            "content":"https:\/\/www.youtube.com\/watch?v=fIHH5-HVS9o",
+            "cover_img":"cover_7565484.png",
+            "created_at":"2016-08-01 16:13:16",
+            "updated_at":"2016-08-01 17:06:02",
+            "status":1,
+            "cat_id":1,
+            "views":null,
+            "slug":"linkin-park-interview"},
+                {
+                    "id":2,
+                    "uid":"907199788790",
+                    "admin_id":"489idfkhj3",
+                    "news_title":"Linkin Park Interview",
+                    "content":"Hip-Hop Hurray say ooo, yes boss",
+                    "cover_img":"cover_7565484.png",
+                    "created_at":"2016-08-01 16:14:05",
+                    "updated_at":"2016-08-01 18:01:48",
+                    "status":1,
+                    "cat_id":1,
+                    "views":null,
+                    "slug":"linkin-park-interview-1199"
+                    }
+                  ]
+                }
+            }
+
+   5.3)-Get LIVEFEED UPDATES
+   API URL - live_feed/updates
+   Request Data
+   {
+   	"data":{
+
+           "last_id" : "103"
+       }
+
+   }
+
+   Response Data:
+   {
+     "version": "1.0",
+     "info": {
+       "code": "200",
+       "msg": "Success"
+     },
+     "data": {
+       "liveFeed": [
+         {
+           "id": 15,
+           "uid": "081080988180",
+           "admin_id": "746374857382",
+           "type": 1,
+           "artist_uid": "173647364837",
+           "title": "Linkin Park Interview",
+           "video_cover": "cover_7565484.png",
+           "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+           "views": 0,
+           "created_at": "2016-07-27 16:22:51",
+           "status": 1,
+           "slug": "linkin-park-interview",
+           "updated_at": "2016-07-27 16:22:51"
+         }
+       ]
+     }
+   }
+
+//END OF LIVEFEED
+
+USER ALBUM API
+1)-Create User Album -
+API URL - user/albums/create
+Request Data
+{
+
+	   input:hidden "user" :"JWT-TOKEN",
+		input:text "name":"Linkin Park Interview",
+		input:file "cover":"cover_7565484.png",
+
+}
+
+Response Data:
+{
+    "version":"1.0",
+    "info":
+        {
+            "code":"201",
+            "msg":"Success"
+        },
+    "data":
+        {
+        "album":
+            {
+                "uid":"789190879001",
+                "link":"https:\/\/www.youtube.com\/watch?v=fIHH5-HVS9o","cover":"cover_7565484.png",
+                "title":"Linkin Park Interview"
+            }
+        }
+}
+
+2)-Get All User Album (By status) - //Returns all active albums is status isnt sent
+API URL - user/albums
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "start" : 0,
+	    "limit" : 5,
+	    "status" : 1 //Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "albums": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview-8199",
+        "updated_at": "2016-07-27 16:22:51"
+      },
+      {
+        "id": 14,
+        "uid": "980790708188",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:12",
+        "status": 1,
+        "slug": "linkin-park-interview-7998",
+        "updated_at": "2016-07-27 16:22:12"
+      }
+    ]
+  }
+}
+
+2a)-Get All Recent User Album (By status) - //Returns all active recent albums is status isnt sent
+API URL - user/albums/recent
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "start" : 0,
+	    "limit" : 5,
+	    "status" : 1 //Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "albums": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview-8199",
+        "updated_at": "2016-07-27 16:22:51"
+      },
+      {
+        "id": 14,
+        "uid": "980790708188",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:12",
+        "status": 1,
+        "slug": "linkin-park-interview-7998",
+        "updated_at": "2016-07-27 16:22:12"
+      }
+    ]
+  }
+}
+
+
+3)-Get User Album
+API URL - user/album
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+        "slug" : "linkin-park-interview"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "album": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview",
+        "updated_at": "2016-07-27 16:22:51"
+      }
+    ]
+  }
+}
+
+4)-Delete Album
+API URL - user/albums/delete
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+        "id" : "103983746574843"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "204",
+    "msg": "Success"
+  },
+  "data": []
+}
+
+5)-Edit Album -
+API URL - user/albums/edit
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "uid" : "081080988180",
+		"name":"Linkin Park Interview"
+
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "201",
+    "msg": "Success"
+  },
+  "data": ["name":"Janglova",
+            "user_uid":"JWT"
+  ]
+}
+
+5.1)-Edit User Album Cover Image -
+API URL - user/albums/edit/cover
+Request Data
+ [
+ name: cover, type:file
+ name: id, type:hidden
+ name: user, type:hidden
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "cover":"891709891009_sdkl.jpg"
+           }
+  }
+
+
+USER SONGS API
+1)-Create User Songs -
+API URL - user/songs/create
+Request Data
+{
+
+	   input:hidden "user" :"JWT-TOKEN",
+		input:text "title":"Linkin Park Interview",
+		input:select "genre": "lutor",
+		input:select "album_id": "lutor",
+		input:file "song_files":"cover_7565484.png",
+
+}
+
+Response Data:
+{
+    "version":"1.0",
+    "info":
+        {
+            "code":"201",
+            "msg":"Success"
+        },
+    "data":
+        {
+        "song":
+            {
+                "uid":"789190879001",
+                "link":"https:\/\/www.youtube.com\/watch?v=fIHH5-HVS9o","cover":"cover_7565484.png",
+                "title":"Linkin Park Interview"
+            }
+        }
+}
+
+3)-Get Songs By Artist
+API URL - song/artist
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+        "artist_uid" : "Banky-w",
+        "start" : 0,
+        "limit" : 5,
+        "status" : 1 //Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "song": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview",
+        "updated_at": "2016-07-27 16:22:51"
+      }
+    ]
+  }
+}
+
+2)-Get All User Songs (By status) - //Returns all active albums is status isnt sent
+API URL - user/songs
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "start" : 0,
+	    "limit" : 5,
+	    "status" : 1 //Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "songs": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview-8199",
+        "updated_at": "2016-07-27 16:22:51"
+      },
+      {
+        "id": 14,
+        "uid": "980790708188",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:12",
+        "status": 1,
+        "slug": "linkin-park-interview-7998",
+        "updated_at": "2016-07-27 16:22:12"
+      }
+    ]
+  }
+}
+
+2a)-Get All Recent User Songs (By status) - //Returns all active recent albums is status isnt sent
+API URL - user/songs/recent
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "start" : 0,
+	    "limit" : 5,
+	    "status" : 1 //Optional
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "songs": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview-8199",
+        "updated_at": "2016-07-27 16:22:51"
+      },
+      {
+        "id": 14,
+        "uid": "980790708188",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:12",
+        "status": 1,
+        "slug": "linkin-park-interview-7998",
+        "updated_at": "2016-07-27 16:22:12"
+      }
+    ]
+  }
+}
+
+
+3)-Get User Song
+API URL - user/song
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+        "uid" : "linkin-park-interview"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "200",
+    "msg": "Success"
+  },
+  "data": {
+    "song": [
+      {
+        "id": 15,
+        "uid": "081080988180",
+        "admin_id": "746374857382",
+        "type": 1,
+        "artist_uid": "173647364837",
+        "title": "Linkin Park Interview",
+        "video_cover": "cover_7565484.png",
+        "filename": "https://www.youtube.com/watch?v=fIHH5-HVS9o",
+        "views": 0,
+        "created_at": "2016-07-27 16:22:51",
+        "status": 1,
+        "slug": "linkin-park-interview",
+        "updated_at": "2016-07-27 16:22:51"
+      }
+    ]
+  }
+}
+
+4)-Delete song
+API URL - user/songs/delete
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+        "uid" : "103983746574843"
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "204",
+    "msg": "Success"
+  },
+  "data": []
+}
+
+5)-Edit Songs -
+API URL - user/songs/edit
+Request Data
+{
+	"data":{
+	    "user" :"JWT-TOKEN",
+	    "uid" : "081080988180",
+		 "title":"Linkin Park Interview",
+         "genre": "lutor",
+         "album_id": "lutor",
+
+    }
+
+}
+
+Response Data:
+{
+  "version": "1.0",
+  "info": {
+    "code": "201",
+    "msg": "Success"
+  },
+  "data": ["song_file":"Janglova",
+            "duration":"JWT"
+  ]
+}
+
+5.1)-Edit User Songs File -
+API URL - user/songs/edit/file
+Request Data
+ [
+ name: song_file, type:file
+ name: uid, type:hidden
+ name: user, type:hidden
+ ]
+
+
+ Response Data:
+ {
+       "version":"1.0",
+       "info":{
+                 "code":"201",
+                 "msg":"Success"
+           },
+       "data":{
+                 "cover":"891709891009_sdkl.jpg"
+           }
+  }
+
+  //FOLLOW API BEGINS HERE
+
+  1)-Follow User -
+  API URL - follow/user
+  Request Data
+  {
+  	"data":{
+  	    "user" :"JWT-TOKEN",
+          "follow_uid" : "103983746574843"
+      }
+
+  }
+
+
+   Response Data:
+   {
+         "version":"1.0",
+         "info":{
+                   "code":"201",
+                   "msg":"Success"
+             },
+         "data":{
+                   "follow":"891709891009"
+             }
+    }
+
+    2)-Unfollow User -
+      API URL - unfollow/user
+      Request Data
+      {
+      	"data":{
+      	    "user" :"JWT-TOKEN",
+              "follow_uid" : "103983746574843"
+          }
+
+      }
+
+
+       Response Data:
+       {
+             "version":"1.0",
+             "info":{
+                       "code":"201",
+                       "msg":"Success"
+                 },
+             "data":{
+                       "follow":"891709891009"
+                 }
+        }
+
+3)-Follow Block User -
+  API URL - follow/block/user
+  Request Data
+  {
+  	"data":{
+  	    "user" :"JWT-TOKEN",
+          "follow_uid" : "103983746574843"
+      }
+
+  }
+
+
+   Response Data:
+   {
+         "version":"1.0",
+         "info":{
+                   "code":"201",
+                   "msg":"Success"
+             },
+         "data":{
+                   "follow":"891709891009"
+             }
+    }
+
+4)-Follow Unblock User -
+  API URL - follow/unblock/user
+  Request Data
+  {
+  	"data":{
+  	    "user" :"JWT-TOKEN",
+          "follow_uid" : "103983746574843"
+      }
+
+  }
+
+
+   Response Data:
+   {
+         "version":"1.0",
+         "info":{
+                   "code":"201",
+                   "msg":"Success"
+             },
+         "data":{
+                   "follow":"891709891009"
+             }
+    }
+
+5)-Following User -
+  API URL - following/user
+  Request Data
+  {
+  	"data":{
+  	    "user" :"JWT-TOKEN"
+      }
+
+  }
+
+
+   Response Data:
+   {
+         "version":"1.0",
+         "info":{
+                   "code":"201",
+                   "msg":"Success"
+             },
+         "data":{
+                   "follow":"891709891009"
+             }
+    }
+
+    6)-User Following -
+      API URL - user/following
+      Request Data
+      {
+      	"data":{
+      	    "user" :"JWT-TOKEN"
+          }
+
+      }
+
+
+       Response Data:
+       {
+             "version":"1.0",
+             "info":{
+                       "code":"201",
+                       "msg":"Success"
+                 },
+             "data":{
+                       "follow":"891709891009"
+                 }
+        }
+
+  //FOLLOW API ENDS HERE
+
+  //PLAYLIST API BEGINS HERE
+
+  Create -- playlist/create
+  {
+      "data":{
+      "title":"morning songs",
+      "type":"1",
+      "user":"JWT"
+      }
+  }
+
+  Response 1
+  {
+      "version":"1.0",
+      "info":{
+              "code":"201",
+              "msg":"Success"
+              },
+      "data":{
+              "signature":"JWT-TOKEN"
+              }
+  }
+
+  EDIT -- playlist/edit
+    {
+        "data":{
+        "title":"morning songs",
+        "uid":"18386433",
+        "user":"JWT"
+        }
+    }
+
+    Response 1
+    {
+        "version":"1.0",
+        "info":{
+                "code":"201",
+                "msg":"Success"
+                },
+        "data":{
+                "signature":"JWT-TOKEN"
+                }
+    }
+
+    delete -- playlist/delete
+      {
+          "data":{
+          "uid":"475843323",
+          "user":"JWT"
+          }
+      }
+
+      Response 1
+      {
+          "version":"1.0",
+          "info":{
+                  "code":"201",
+                  "msg":"Success"
+                  },
+          "data":{
+                  "signature":"JWT-TOKEN"
+                  }
+      }
+
+  //FETCH PLAYLIST OF USER
+  PLAYLIST OF USER API -- /user/playlist/all
+  Request
+
+  {
+      "data":{
+              "status":"1" //optional
+      }
+  }
+
+
+   Response 2
+   {
+      "version":"1.0",
+      "info":{
+              "code":"201",
+              "msg":"Success"
+              },
+      "data":{
+              "username":"solomon",
+              "full_name":"solomon nweze",
+              "email":"solomon@yahoo.com",
+              "uid":"489idfkhj3",
+              "account_type":"1",
+              "avatar":"cdn/images/my_afrobeat.jpg",
+              "links":{
+                      "link1":{
+                              "text":"Videos",
+                              "icon":"film"
+                      },
+                      "link2":{
+                              "text":"News",
+                              "icon":"newspaper"
+                              }
+                      }
+              }
+   }
+
+//FETCH PLAYLIST SONGS
+  PLAYLIST SONGS API -- /playlist/songs
+  Request
+
+  {
+      "data":{
+              "slug":"morning-blues"
+      }
+  }
+
+
+   Response 2
+   {
+      "version":"1.0",
+      "info":{
+              "code":"201",
+              "msg":"Success"
+              },
+      "data":{
+              "username":"solomon",
+              "full_name":"solomon nweze",
+              "email":"solomon@yahoo.com",
+              "uid":"489idfkhj3",
+              "account_type":"1",
+              "avatar":"cdn/images/my_afrobeat.jpg",
+              "links":{
+                      "link1":{
+                              "text":"Videos",
+                              "icon":"film"
+                      },
+                      "link2":{
+                              "text":"News",
+                              "icon":"newspaper"
+                              }
+                      }
+              }
+   }
+
+    ADD SONG TO PLAYLIST API -- /playlist/song/add
+    {
+        "data":{
+        "user":"JWT",
+        "playlist_uid":"7679997054"
+        "file_uid":"858367443"
+        }
+    }
+
+    Response 1
+    {
+        "version":"1.0",
+        "info":{
+                "code":"201",
+                "msg":"Success"
+                },
+        "data":{
+                "user":"olajide"
+                }
+    }
+
+ DELETE SONG TO PLAYLIST API -- /playlist/song/delete
+    {
+        "data":{
+        "user":"JWT",
+        "id":"8"
+        }
+    }
+
+    Response 1
+    {
+        "version":"1.0",
+        "info":{
+                "code":"201",
+                "msg":"Success"
+                },
+        "data":{
+                "user":"olajide"
+                }
+    }
+
+      //ALL PLAYLIST
+
+      1)-Get All PLAYLIST (By status) - //Returns all active playlist
+      API URL - playlist/all
+      Request Data
+      {
+      	"data":{
+      	    "start" : 0,
+      	    "limit" : 5,
+      	    "status" : 1, //Optional
+      	    "acc_type" : 1 //Optional
+          }
+
+      }
+
+      Response Data:
+      {
+        "version": "1.0",
+        "info": {
+          "code": "200",
+          "msg": "Success"
+        },
+        "data": {
+          "news": [
+            {
+              "id": 15,
+              "uid": "081080988180",
+              "admin_id": "746374857382",
+              "cat_id": 1,
+              "title": "Linkin Park Interview",
+              "cover_img": "cover_7565484.png",
+              "content": "this is letter to my unborn child",
+              "views": 0,
+              "created_at": "2016-07-27 16:22:51",
+              "status": 1,
+              "slug": "linkin-park-interview-8199",
+              "updated_at": "2016-07-27 16:22:51"
+            },
+            {
+              "id": 14,
+              "uid": "980790708188",
+              "admin_id": "746374857382",
+              "cat_id": 1,
+              "title": "Linkin Park Interview",
+              "cover_img": "cover_7565484.png",
+              "content": "Only God can judge me, nobody else",
+              "views": 0,
+              "created_at": "2016-07-27 16:22:12",
+              "status": 1,
+              "slug": "linkin-park-interview-7998",
+              "updated_at": "2016-07-27 16:22:12"
+            }
+          ]
+        }
+      }
+
